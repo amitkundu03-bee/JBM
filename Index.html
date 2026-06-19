@@ -1,20 +1,195 @@
 <!DOCTYPE html>
-<html><head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vehicle IN/OUT</title>
-<link rel="stylesheet" href="style.css">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organic Live Market | Transparent Farm-to-Door Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h2>Vehicle Management System</h2>
-<video id="video" autoplay playsinline></video>
-<canvas id="canvas" hidden></canvas>
-<div>
-<button onclick="capture('IN')">Vehicle IN</button>
-<button onclick="capture('OUT')">Vehicle OUT</button>
-</div>
-<input id="plate" placeholder="Detected Vehicle Number">
-<table><thead><tr><th>No</th><th>IN</th><th>OUT</th></tr></thead><tbody id="rows"></tbody></table>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="#home" aria-label="Organic Live Market home">
+        <span class="brand-mark">◎</span>
+        <span>Organic Live</span>
+      </a>
+      <button class="nav-toggle" aria-label="Open menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#shop">Shop</a>
+        <a href="#live">Live CCTV</a>
+        <a href="#tracking">Tracking</a>
+        <a href="#dashboards">Dashboards</a>
+      </div>
+      <div class="nav-actions">
+        <button class="ghost-btn">Login</button>
+        <button class="primary-btn">Sign up</button>
+      </div>
+    </nav>
+  </header>
 
-<script type="module" src="firebase.js"></script>
-<script type="module" src="app.js"></script>
-</body></html>
+  <main id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Farm-to-customer quick commerce</p>
+        <h1>Fresh. Organic. Transparent.</h1>
+        <p class="hero-text">See where your food comes from — live. Browse certified organic produce, watch farm and packing cameras, and receive fresh orders with quick-commerce speed.</p>
+        <div class="hero-actions">
+          <a class="primary-btn large" href="#shop">Start shopping</a>
+          <a class="outline-btn large" href="#live">Watch live farm</a>
+        </div>
+        <div class="trust-row">
+          <span>USDA-style organic badges</span>
+          <span>Secure camera tokens</span>
+          <span>24 hr archive</span>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Live farm preview">
+        <div class="live-video">
+          <div class="sun"></div>
+          <div class="field-lines"></div>
+          <span class="live-pill">● LIVE Farm 01</span>
+          <span class="timestamp" id="heroTime">--:--:-- UTC</span>
+        </div>
+        <div class="packing-status">
+          <strong>Currently packing orders</strong>
+          <span>284 viewers watching transparency feed</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section categories" aria-labelledby="categoriesTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Categories</p>
+        <h2 id="categoriesTitle">Everything organic in minutes</h2>
+      </div>
+      <div class="category-grid">
+        <button>🥦 Vegetables</button>
+        <button>🍎 Fruits</button>
+        <button>🌾 Grains</button>
+        <button>🥛 Dairy</button>
+        <button>🌶️ Spices</button>
+        <button>🌱 Seeds</button>
+        <button>🪴 Organic Fertilizers</button>
+      </div>
+    </section>
+
+    <section class="section shop-section" id="shop" aria-labelledby="shopTitle">
+      <div class="section-heading split">
+        <div>
+          <p class="eyebrow">Quick shop</p>
+          <h2 id="shopTitle">Certified products with live proof</h2>
+        </div>
+        <div class="search-box">🔎 Search organic products</div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="section detail-section" aria-labelledby="detailTitle">
+      <div class="product-detail-card">
+        <div class="detail-gallery">
+          <div class="produce-illustration">🥕</div>
+          <div class="thumb-row"><span></span><span></span><span></span></div>
+        </div>
+        <div class="detail-content">
+          <p class="eyebrow">Product detail</p>
+          <h2 id="detailTitle">Organic Rainbow Carrots</h2>
+          <p>Grown at Green Valley Farm using compost nutrition, drip irrigation, and pesticide-free crop rotation.</p>
+          <ul class="info-list">
+            <li><strong>Farm:</strong> Green Valley Farm, Nashik</li>
+            <li><strong>Nutrition:</strong> Vitamin A, potassium, fiber</li>
+            <li><strong>Process:</strong> Harvested, sorted, washed, packed</li>
+            <li><strong>Reviews:</strong> ★★★★★ 4.8 from 1,248 customers</li>
+          </ul>
+          <div class="detail-actions">
+            <button class="primary-btn">Add to Cart</button>
+            <button class="outline-btn">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section live-section" id="live" aria-labelledby="liveTitle">
+      <div class="section-heading split">
+        <div>
+          <p class="eyebrow">Live transparency section</p>
+          <h2 id="liveTitle">Switch cameras from farm to dispatch</h2>
+        </div>
+        <span class="secure-badge">Face blur • restricted zones • tokenized stream</span>
+      </div>
+      <div class="live-console">
+        <div class="camera-panel">
+          <div class="camera-screen" id="cameraScreen">
+            <span class="live-pill">● LIVE</span>
+            <span class="timestamp" id="cameraTime">--:--:-- UTC</span>
+            <div class="camera-label" id="cameraLabel">Farm</div>
+          </div>
+          <div class="archive-bar">
+            <span>Archive playback: last 24 hrs</span>
+            <progress value="78" max="100"></progress>
+          </div>
+        </div>
+        <div class="camera-list" id="cameraList"></div>
+      </div>
+    </section>
+
+    <section class="section flow-section" aria-labelledby="flowTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Shopping flow</p>
+        <h2 id="flowTitle">Cart, checkout, and delivery without friction</h2>
+      </div>
+      <div class="flow-grid">
+        <article><h3>Cart</h3><p>Add/remove quantity, save for later, coupons, dynamic pricing, and fresh-stock alerts.</p></article>
+        <article><h3>Checkout</h3><p>Select address, delivery slot, UPI/cards/COD, and review the final order summary.</p></article>
+        <article><h3>Payments</h3><p>Ready for Razorpay or Stripe integrations with secure confirmation states.</p></article>
+      </div>
+    </section>
+
+    <section class="section tracking-section" id="tracking" aria-labelledby="trackingTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Realtime order tracking</p>
+        <h2 id="trackingTitle">From placed to delivered</h2>
+      </div>
+      <ol class="timeline">
+        <li class="done">Order Placed</li>
+        <li class="done">Picked</li>
+        <li class="active">Packing <span>Live view available</span></li>
+        <li>Dispatched</li>
+        <li>Delivered</li>
+      </ol>
+    </section>
+
+    <section class="section dashboards" id="dashboards" aria-labelledby="dashboardTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Role-based dashboards</p>
+        <h2 id="dashboardTitle">Built for customers, farmers, managers, and admins</h2>
+      </div>
+      <div class="dashboard-grid">
+        <article><h3>Customer</h3><p>Profile, saved addresses, order history, product reviews, and transparent purchase journey.</p></article>
+        <article><h3>Farmer / Vendor</h3><p>Upload products, manage inventory, monitor cameras, analyze sales, and process orders.</p></article>
+        <article><h3>Store Manager</h3><p>Inventory control, packing queues, dispatch coordination, and live operational alerts.</p></article>
+        <article><h3>Admin</h3><p>User management, camera moderation, revenue analytics, fraud alerts, and AI anomaly review.</p></article>
+      </div>
+    </section>
+
+    <section class="section tech-section" aria-labelledby="techTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Technical blueprint</p>
+        <h2 id="techTitle">Ready for a scalable implementation</h2>
+      </div>
+      <div class="tech-stack">
+        <span>React + Next.js</span><span>Tailwind CSS</span><span>PWA</span><span>Firebase / Node.js</span><span>REST API</span><span>Firestore / PostgreSQL</span><span>Cloud Storage</span><span>WebRTC / RTSP → HLS</span><span>AI recommendations</span><span>Stock prediction</span><span>Fraud detection</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <strong>Organic Live Market</strong>
+    <span>“See Where Your Food Comes From — Live.”</span>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
